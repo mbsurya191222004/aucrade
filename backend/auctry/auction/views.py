@@ -1,11 +1,12 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import ItemsSerializer
-from .models import Items, auctons
+from .serializers import ItemsSerializer, BidsSerializer
+from .models import Items, auctons, Bids
 from accounts.views import add_auctons_func, deduct_auctons_func
 from django.contrib.auth.models import User
 from rest_framework.permissions import IsAuthenticated
 from django.http import JsonResponse
+
 
 class All_items(APIView):
     permission_classes = [IsAuthenticated]
@@ -36,7 +37,6 @@ class post_item(APIView):
         user = User.objects.get(username=request.user)
 
         data["seller"] = user.id
-        data["last_price"] = data["initial_price"]
         serializer = ItemsSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
@@ -49,34 +49,38 @@ class Bid(APIView):
 
     def post(self, request):
         data = request.data
-        bidder = User.objects.get(username=request.user)
-        item = Items.objects.get(pk=request.data["item_id"])
-        bid = request.data["bid"]
-        item_init_price = item.initial_price
-        item_step_price = item.step_price
-        item_last_price =
-
-        if (bid - (item_last_price + item_step_price)) > 0 and bid > item_last_price:
-            deducted = deduct_auctons_func(bidder, bid)
-            if deducted:
-                item.last_price = bid
-
-                if item.last_bidder_1 != bidder:
-                    item.last_bidder_3 = item.last_bidder_2
-                    item.last_bidder_2 = item.last_bidder_1
-                    item.last_bidder_1 = bidder
-                item.save()
-                return Response(
-                    f"{bidder.username} Bidded on {item.name} succesfully at {bid}",
-                    status=200,
-                )
-            else:
-                return Response("not enough funds")
-
-        return Response(
-            {"message": "non-valid bid"},
-            status=400,
+        item = Items.objects.get(pk=data["item_Id"])
+        init_price = item.initial_price
+        step_price = item.step_price
+        data["bidder"] = (User.objects.get(username=request.user)).id
+        serializer = BidsSerializer(data=data)
+        all_bids = (
+            Bids.objects.filter(item_Id=data["item_Id"]).order_by("-bid").values()
         )
+        if serializer.is_valid():
+            if all_bids:
+                if (
+                    all_bids[0]["bid"] < data["bid"]
+                    and data["bid"] > (init_price + step_price)
+                    and ((data["bid"] - init_price) % step_price == 0)
+                ):
+                    serializer.save()
+                    return Response(serializer.data, status=200)
+                return Response(
+                    {
+                        "message": "bid lower than the highest or not according to step price"
+                    },
+                    status=400,
+                )
+            elif data["bid"] >= (init_price + step_price) and (
+                (data["bid"] - init_price) % step_price == 0
+            ):
+                serializer.save()
+                return Response(serializer.data, status=200)
+            else:
+                return Response({"message": "invalid bid"}, status=400)
+        return Response(serializer.errors, status=400)
+
 
 def check_auth(request):
     return JsonResponse({"user": str(request.user)})

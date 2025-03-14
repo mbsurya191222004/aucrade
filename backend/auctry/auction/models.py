@@ -30,7 +30,8 @@ class Items(models.Model):
     is_delivery_fees = models.BooleanField(null=False, blank=False, default=None)
     on_sale = models.BooleanField(null=False, blank=False, default=True)
 
+
 class Bids(models.Model):
-    item=models.ForeignKey(Items,on_delete=models.CASCADE,related_name="item")
-    bidder = models.ForeignKey(User,on_delete=models.CASCADE,related_name="item")
+    item_Id = models.ForeignKey(Items, on_delete=models.CASCADE, related_name="item")
+    bidder = models.ForeignKey(User, on_delete=models.CASCADE, related_name="item")
     bid = models.FloatField()
