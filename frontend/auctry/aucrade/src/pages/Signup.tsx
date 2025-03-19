@@ -19,7 +19,7 @@ export const Signup = () => {
     setPassword(e.target.value);
   };
 
-  const handleClick = (e: MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleClick = (e: MouseEvent) => {
     e.preventDefault();
     const response = SignUp(username, email, password);
     response
