@@ -68,7 +68,7 @@ class login(APIView):
             response.set_cookie(
                 key="jwt",
                 value=jwt_token,
-                httponly=True,
+                httponly=False,
                 secure=True,  # Set True in production (HTTPS)
                 samesite="Lax",  # Change to "Strict" if needed
                 domain="192.168.0.101",
