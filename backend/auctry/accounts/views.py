@@ -85,9 +85,10 @@ class Sign_up(APIView):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
+            username = serializer.data["username"]
             return Response(
                 {
-                    "message": f"welcome {serializer.data["username"]}",  # why here error?
+                    "message": f"welcome {username} ",  # why here error?
                 },
                 status=200,
             )
