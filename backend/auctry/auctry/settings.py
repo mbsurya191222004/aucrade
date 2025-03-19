@@ -59,16 +59,13 @@ INSTALLED_APPS = [
 ]
 
 
-
-
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "auctry.middleware.JWTAuthenticationMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.middleware.security.SecurityMiddleware",
-
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
@@ -76,7 +73,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://192.168.0.101:5173",
-"http://192.168.0.102:5173",
+    "http://192.168.0.102:5173",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -112,21 +109,20 @@ WSGI_APPLICATION = "auctry.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "auctry",
-        "USER": "root",
-        "PASSWORD": "1534",
-        "HOST": "localhost",
-        "PORT": "3306",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "aucrade",
+        "USER": "aucrade_user",
+        "PASSWORD": "HbnYsXR5dj0gYNRP506W1k5Xa7nX7ju1",
+        "HOST": "dpg-cvdba6lds78s7386vjtg-a",  # Use 'localhost' if running locally
+        "PORT": "5432",  # Default PostgreSQL port
     }
 }
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
-"rest_framework_simplejwt.authentication.JWTAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
 }
-
 
 
 SIMPLE_JWT = {
