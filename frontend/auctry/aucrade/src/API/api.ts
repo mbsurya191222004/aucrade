@@ -1,4 +1,4 @@
-const base_url = "http://192.168.0.101:8000"; //hhhe333
+const base_url = "aucrade.onrender.com"; //hhhe333
 
 export const SignUp = async (
   username: string | undefined,
