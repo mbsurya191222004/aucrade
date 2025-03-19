@@ -58,7 +58,7 @@ class login(APIView):
         username = request.data["username"]
         password = request.data["password"]
 
-        user =authenticate(username=username,password=password)
+        user = authenticate(username=username, password=password)
         if user:
             # Generate JWT
             jwt_token = AccessToken.for_user(user)
@@ -69,10 +69,10 @@ class login(APIView):
                 key="jwt",
                 value=jwt_token,
                 httponly=True,
-                secure=False, #Set True in production (HTTPS)
-                samesite="Lax",# Change to "Strict" if needed
+                secure=False,  # Set True in production (HTTPS)
+                samesite="Lax",  # Change to "Strict" if needed
                 domain="192.168.0.101",
-                path="/"  # Prevents CSRF attacks
+                path="/",  # Prevents CSRF attacks
             )
 
             return response
@@ -87,7 +87,7 @@ class Sign_up(APIView):
             serializer.save()
             return Response(
                 {
-                    "message": f"welcome {serializer.data["username"]}",
+                    "message": f"welcome {serializer.data["username"]}",  # why here error?
                 },
                 status=200,
             )
