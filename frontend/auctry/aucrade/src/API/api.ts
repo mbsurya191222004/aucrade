@@ -1,4 +1,4 @@
-const base_url = "aucrade.onrender.com"; //hhhe333
+const base_url = "https://aucrade.onrender.com";
 
 export const SignUp = async (
   username: string | undefined,

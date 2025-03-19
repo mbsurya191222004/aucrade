@@ -37,7 +37,7 @@ export const Signup = () => {
 
   return (
     <div>
-      <label htmlFor="">{message}</label>
+      <label htmlFor="">---{message}---</label>
       <form id="SignUpForm">
         <input
           type="text"
