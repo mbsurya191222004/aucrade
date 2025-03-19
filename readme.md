@@ -80,11 +80,3 @@ The backend exposes the following API endpoints:
 
 For detailed API interaction, check `src/API/api.ts` in the frontend.
 
-## Contribution
-If you wish to contribute, fork the repository, make changes, and submit a pull request.
-
-## License
-This project is open-source and follows a license (mention the specific license if applicable).
-
-Let me know if you need modifications!
-
