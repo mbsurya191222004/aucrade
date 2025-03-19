@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+import dj_database_url
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -108,14 +109,9 @@ WSGI_APPLICATION = "auctry.wsgi.application"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "aucrade",
-        "USER": "aucrade_user",
-        "PASSWORD": "HbnYsXR5dj0gYNRP506W1k5Xa7nX7ju1",
-        "HOST": "dpg-cvdba6lds78s7386vjtg-a",  # Use 'localhost' if running locally
-        "PORT": "5432",  # Default PostgreSQL port
-    }
+    "default": dj_database_url.config(
+        default="postgresql://aucrade_user:HbnYsXR5dj0gYNRP506W1k5Xa7nX7ju1@dpg-cvdba6lds78s7386vjtg-a/aucrade"
+    )
 }
 
 REST_FRAMEWORK = {
