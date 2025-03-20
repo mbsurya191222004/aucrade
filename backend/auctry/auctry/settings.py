@@ -84,7 +84,10 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_METHODS = ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
 CORS_ALLOW_HEADERS = ["Content-Type", "Authorization"]
 
-CSRF_TRUSTED_ORIGINS = ["http://192.168.0.101:5173"]
+CSRF_TRUSTED_ORIGINS = [
+    "http://192.168.0.101:5173",
+    "http://192.168.0.102:5173",
+]
 
 ROOT_URLCONF = "auctry.urls"
 
