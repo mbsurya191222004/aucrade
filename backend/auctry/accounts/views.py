@@ -71,7 +71,6 @@ class login(APIView):
                 httponly=True,
                 secure=True,  # Set True in production (HTTPS)
                 samesite="None",  # Change to "Strict" if needed
-                domain="192.168.0.101",
                 path="/",  # Prevents CSRF attacks
             )
 
