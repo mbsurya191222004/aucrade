@@ -72,6 +72,7 @@ class login(APIView):
                 secure=True,  # Set True in production (HTTPS)
                 samesite="None",  # Change to "Strict" if needed
                 path="/",  # Prevents CSRF attacks
+                # add domain to url of server otherwise cookie wont work
             )
 
             return response
